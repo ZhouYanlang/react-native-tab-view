@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import shallowCompare from 'react-addons-shallow-compare';
 import TabViewTransitioner from './TabViewTransitioner';
+import TabViewSheet from './TabViewSheet';
 import { NavigationStatePropType } from './TabViewPropTypes';
 import type { NavigationState, Route, SceneRendererProps } from './TabViewTypeDefinitions';
 
@@ -76,19 +77,20 @@ export default class TabViewAnimated extends Component<void, Props, State> {
 
   _renderItems = (props: SceneRendererProps) => {
     const { renderHeader, renderFooter } = this.props;
+    const { navigationState, layout } = props;
 
     return (
       <View style={styles.container}>
         {renderHeader && renderHeader(props)}
-        <View style={styles.container}>
-          {props.layout.measured ?
-            <View style={styles.container}>
-              {this.props.navigationState.routes.map(route => {
-                return this._renderScene({ ...props, route, key: route.key });
-              })}
-            </View> : null
-          }
-        </View>
+        <TabViewSheet {...props} style={styles.container}>
+          {navigationState.routes.map(route => {
+            return (
+              <View key={route.key} style={{ height: layout.height, width: layout.width }}>
+                {this._renderScene({ ...props, route, key: route.key })}
+              </View>
+            );
+          })}
+        </TabViewSheet>
         {renderFooter && renderFooter(props)}
       </View>
     );

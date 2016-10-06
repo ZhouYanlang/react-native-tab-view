@@ -271,7 +271,9 @@ export default class TabBar extends Component<DefaultProps, Props, State> {
       <View style={[ styles.tabbar, this.props.style ]}>
         <ScrollView
           horizontal
+          directionalLockEnabled
           scrollEnabled={scrollEnabled}
+          automaticallyAdjustContentInsets={false}
           bounces={false}
           scrollsToTop={false}
           showsHorizontalScrollIndicator={false}

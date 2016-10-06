@@ -64,7 +64,7 @@ export default class CoverflowExample extends Component {
     // Prepend '-1', so there are always at least 2 items in inputRange
     const inputRange = [ -1, ...routes.map((x, i) => i) ];
     const translateOutputRange = inputRange.map(i => {
-      return width * (currentIndex - i) - ((width / 2) * (currentIndex - i));
+      return ((width / 2) * (currentIndex - i)) * -1;
     });
     const scaleOutputRange = inputRange.map(i => {
       if (currentIndex === i) {
@@ -95,7 +95,6 @@ export default class CoverflowExample extends Component {
     });
 
     return {
-      width,
       transform: [
         { translateX },
         { scale },
